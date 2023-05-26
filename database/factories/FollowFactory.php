@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,16 @@ class FollowFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'follower_id' => $followerId = fake()->numberBetween(1, User::count()),
+            'followed_id' => function () use ($followerId) {
+                $followedId = fake()->numberBetween(1, User::count());
+                
+                while ($followedId === $followerId) {
+                    $followedId = fake()->numberBetween(1, User::count());
+                }
+        
+                return $followedId;
+            },
         ];
     }
 }
