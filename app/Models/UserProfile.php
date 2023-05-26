@@ -11,7 +11,7 @@ class UserProfile extends Model
 {
     use HasFactory;
 
-    public function user(): BelongsTo
+    public function ProfileUser(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
